@@ -1,0 +1,16 @@
+Hisense AEH-W4E1
+================
+
+This project is licensed under the GNU General Public License v3.0 (see
+LICENSE).
+
+Portions of this project are derived from the AirCon add-on by deiger
+(https://github.com/deiger/AirCon), also licensed under GPL-3.0:
+
+  - The OEM app secret/ID mapping tables in
+    custom_components/aeh_w4e1/ayla_cloud.py (SECRET_MAP, SECRET_ID_MAP,
+    SECRET_ID_EXTRA_MAP, CELSIUS_BASED_APPS, AYLA_USER_SERVERS,
+    AYLA_DEVICES_SERVERS), derived from AirCon's aircon/app_mappings.py.
+
+All other parts of this project are an independent implementation of the
+Ayla Networks LAN protocol.

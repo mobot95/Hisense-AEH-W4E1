@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dev / reference material (not part of the integration)
+reference/
+.graymatter/
+
+# Local Home Assistant artifacts
+config_entry-*.json
+home-assistant.log*
+
+# Live test scripts (read local device credentials; not part of the integration)
+tools/

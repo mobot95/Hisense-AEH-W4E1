@@ -1,0 +1,219 @@
+{
+  "title": "Hisense AEH-W4E1",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hisense AEH-W4E1",
+        "description": "Scegli come configurare il condizionatore. Viene creata una configurazione per ogni unità — ripeti il setup per ciascuna. Serve la chiave LAN (lanip_key): ottienila una volta col metodo cloud.",
+        "data": {
+          "setup_method": "Metodo di configurazione"
+        }
+      },
+      "manual": {
+        "title": "Configurazione manuale (completamente locale)",
+        "description": "Inserisci l'IP statico del condizionatore e la sua chiave LAN. La chiave si ottiene una sola volta col metodo cloud.",
+        "data": {
+          "name": "Nome",
+          "host": "Indirizzo IP del condizionatore",
+          "lanip_key": "Chiave LAN (lanip_key)",
+          "lanip_key_id": "ID chiave LAN (lanip_key_id)",
+          "temp_unit": "Unità di temperatura riportata dal dispositivo",
+          "device_port": "Porta HTTP del dispositivo"
+        }
+      },
+      "reconfigure": {
+        "title": "Riconfigura il condizionatore",
+        "description": "Aggiorna l'indirizzo o la chiave LAN del dispositivo (ad esempio dopo un cambio router o se il modulo è stato riassociato a un nuovo account).",
+        "data": {
+          "name": "Nome",
+          "host": "Indirizzo IP del condizionatore",
+          "lanip_key": "Chiave LAN (lanip_key)",
+          "lanip_key_id": "ID chiave LAN (lanip_key_id)",
+          "temp_unit": "Unità di temperatura riportata dal dispositivo",
+          "device_port": "Porta HTTP del dispositivo"
+        }
+      },
+      "cloud": {
+        "title": "Scoperta cloud (una sola volta)",
+        "description": "Accedi una volta con le credenziali dell'app OEM per ottenere l'elenco dispositivi e le chiavi LAN. Dopo la configurazione l'integrazione funziona interamente in locale: puoi bloccare i climatizzatori da internet.",
+        "data": {
+          "app": "App mobile",
+          "cloud_user": "Nome utente dell'app",
+          "cloud_password": "Password dell'app"
+        }
+      },
+      "cloud_device": {
+        "title": "Seleziona il condizionatore",
+        "data": {
+          "cloud_device": "Dispositivo"
+        },
+        "description": "Viene creata una configurazione per ogni condizionatore. Selezionane ora uno; per aggiungere gli altri ripeti *Aggiungi integrazione* → *Hisense AEH-W4E1* → *Cloud* con le stesse credenziali e scegli il dispositivo successivo."
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossibile connettersi al condizionatore (controlla l'indirizzo IP)",
+      "invalid_auth": "Nome utente o password non validi",
+      "invalid_key_id": "L'ID chiave LAN deve essere un numero"
+    },
+    "abort": {
+      "already_configured": "Questo condizionatore è già configurato",
+      "no_lan_ip": "Il dispositivo non ha un IP locale assegnato: collegalo prima alla rete",
+      "reconfigure_successful": "Riconfigurazione completata"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opzioni AEH-W4E1",
+        "description": "Opzioni del server LAN, del polling e della scansione di rete.",
+        "data": {
+          "server_port": "Porta del server LAN (0 = porta libera assegnata dal sistema, consigliato)",
+          "local_ip": "Indirizzo IP pubblicizzato ai condizionatori (vuoto = rilevamento automatico; impostalo se HA è su una sottorete/VLAN diversa)",
+          "refresh_interval": "Intervallo di aggiornamento completo dello stato (secondi)",
+          "keepalive_interval": "Intervallo di registrazione keep-alive (secondi)",
+          "scan_network": "Rete per le scansioni mirate: rediscovery dei moduli irraggiungibili e servizio scan (CIDR, vuoto = dedotta)"
+        }
+      }
+    }
+  },
+  "issues": {
+    "unknown_key_id": {
+      "title": "Un modulo AEH-W4E1 sconosciuto ha tentato la connessione",
+      "description": "Un modulo all'indirizzo {ip} ha effettuato uno scambio di chiavi con ID chiave LAN {key_id}, che non corrisponde ad alcun condizionatore configurato. Se è un'unità nuova, aggiungila dalla pagina dell'integrazione. Se un'unità configurata è stata riassociata a un altro account, riconfigurala con la nuova chiave LAN."
+    },
+    "port_bind_failed": {
+      "title": "Conflitto sulla porta del server LAN AEH-W4E1",
+      "description": "Impossibile aprire la porta {port} ({error}). Apri le opzioni dell'integrazione e imposta la porta del server LAN a 0 (porta libera assegnata dal sistema, consigliato) oppure a un'altra porta non utilizzata."
+    }
+  },
+  "services": {
+    "send_command": {
+      "name": "Invia comando raw",
+      "description": "Invia un comando a una o più proprietà del condizionatore AEH-W4E1."
+    },
+    "request_status_refresh": {
+      "name": "Richiedi aggiornamento stato",
+      "description": "Accoda un polling completo dello stato per uno o più condizionatori AEH-W4E1; il dispositivo risponderà alla prossima connessione."
+    },
+    "scan_network": {
+      "name": "Scansiona rete",
+      "description": "Analizza la sottorete locale alla ricerca di moduli Ayla e genera un evento `aeh_w4e1_scan_completed` con i risultati."
+    }
+  },
+  "selector": {
+    "setup_method": {
+      "options": {
+        "cloud": "Cloud (scoperta una sola volta, poi locale)",
+        "manual": "Manuale (solo chiave LAN, completamente locale)"
+      }
+    },
+    "temp_unit": {
+      "options": {
+        "C": "Celsius",
+        "F": "Fahrenheit"
+      }
+    },
+    "app": {
+      "options": {
+        "beko-eu": "Beko",
+        "denali-us": "Denali Aire",
+        "fglair-cn": "FGLair CN (Fujitsu)",
+        "fglair-eu": "FGLair EU (Fujitsu)",
+        "fglair-us": "FGLair US (Fujitsu)",
+        "field-us": "HiSmart Air",
+        "haxxair": "HAXXAIR",
+        "hisense-eu": "HiSmart Life (Hisense EU)",
+        "hisense-us": "HiSmart Home (Hisense US)",
+        "hismart-eu": "Smart-Living",
+        "hismart-us": "AI-Home",
+        "huihe-us": "SunHome",
+        "mid-eu": "WiFi AC",
+        "mid-us": "Smiling Air",
+        "oem-eu": "Hi-Smart AC",
+        "oem-us": "Hisense (OEM US)",
+        "tornado-us": "Tornado WiFi",
+        "winia-us": "Winia HomeSmart",
+        "wwh-us": "Westinghouse",
+        "york-us": "YORK Smart"
+      }
+    }
+  },
+  "entity": {
+    "climate": {
+      "ac": {
+        "state_attributes": {
+          "fan_mode": {
+            "state": {
+              "auto": "Automatica",
+              "lower": "Silenziosa (lower)",
+              "low": "Bassa",
+              "medium": "Media",
+              "high": "Alta",
+              "higher": "Massima (higher)"
+            }
+          },
+          "preset_mode": {
+            "state": {
+              "none": "Nessuno",
+              "eco": "Eco",
+              "fast_heat_cool": "Riscald/raffreddamento rapido",
+              "eight_deg_heat": "Riscaldamento 8°",
+              "sleep_1": "Notte 1",
+              "sleep_2": "Notte 2",
+              "sleep_3": "Notte 3",
+              "sleep_4": "Notte 4"
+            }
+          },
+          "swing_mode": {
+            "state": {
+              "off": "Off",
+              "on": "On"
+            }
+          },
+          "swing_horizontal_mode": {
+            "state": {
+              "off": "Off",
+              "on": "On"
+            }
+          }
+        }
+      }
+    },
+    "switch": {
+      "backlight": {
+        "name": "Retroilluminazione display"
+      },
+      "silent_mode": {
+        "name": "Modalità silenziosa"
+      },
+      "display_power": {
+        "name": "Accensione display"
+      },
+      "double_frequency": {
+        "name": "Doppia frequenza"
+      }
+    },
+    "sensor": {
+      "humidity": {
+        "name": "Umidità"
+      },
+      "room_temperature": {
+        "name": "Temperatura ambiente"
+      },
+      "voltage": {
+        "name": "Tensione"
+      },
+      "electricity": {
+        "name": "Elettricità"
+      }
+    },
+    "binary_sensor": {
+      "filter_dirty": {
+        "name": "Filtro da pulire"
+      },
+      "fault": {
+        "name": "Guasto"
+      }
+    }
+  }
+}

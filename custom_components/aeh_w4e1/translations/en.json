@@ -1,0 +1,219 @@
+{
+  "title": "Hisense AEH-W4E1",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hisense AEH-W4E1",
+        "description": "Choose how to set up your air conditioner. One configuration entry is created per air conditioner — repeat the setup for each unit. The LAN key (lanip_key) is required: fetch it once via the cloud method.",
+        "data": {
+          "setup_method": "Setup method"
+        }
+      },
+      "manual": {
+        "title": "Manual setup (fully local)",
+        "description": "Enter the AC's static IP and its LAN key. The LAN key can be obtained once via the cloud method.",
+        "data": {
+          "name": "Name",
+          "host": "Air conditioner IP address",
+          "lanip_key": "LAN key (lanip_key)",
+          "lanip_key_id": "LAN key ID (lanip_key_id)",
+          "temp_unit": "Temperature unit reported by the device",
+          "device_port": "Device HTTP port"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure the air conditioner",
+        "description": "Update the device address or LAN key (for example after a router change or if the module was re-provisioned to a new app account).",
+        "data": {
+          "name": "Name",
+          "host": "Air conditioner IP address",
+          "lanip_key": "LAN key (lanip_key)",
+          "lanip_key_id": "LAN key ID (lanip_key_id)",
+          "temp_unit": "Temperature unit reported by the device",
+          "device_port": "Device HTTP port"
+        }
+      },
+      "cloud": {
+        "title": "Cloud discovery (one-time)",
+        "description": "Sign in once with your OEM app credentials to fetch the device list and LAN keys. After setup the integration works fully locally; you can block the A/Cs from the internet.",
+        "data": {
+          "app": "Mobile app",
+          "cloud_user": "App username",
+          "cloud_password": "App password"
+        }
+      },
+      "cloud_device": {
+        "title": "Select the air conditioner",
+        "data": {
+          "cloud_device": "Device"
+        },
+        "description": "One configuration entry is created per air conditioner. Pick one now; to add the others, repeat *Add Integration* → *Hisense AEH-W4E1* → *Cloud* with the same credentials and choose the next device."
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the air conditioner (check the IP address)",
+      "invalid_auth": "Invalid username or password",
+      "invalid_key_id": "The LAN key ID must be a number"
+    },
+    "abort": {
+      "already_configured": "This air conditioner is already configured",
+      "no_lan_ip": "The device has no local IP assigned; connect it to the network first",
+      "reconfigure_successful": "Reconfiguration successful"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "AEH-W4E1 options",
+        "description": "Local server, polling and network scanning options.",
+        "data": {
+          "server_port": "LAN server port (0 = system-assigned free port, recommended)",
+          "local_ip": "IP address advertised to the ACs (empty = auto-detect; set it when HA is on a different subnet/VLAN)",
+          "refresh_interval": "Full status refresh interval (seconds)",
+          "keepalive_interval": "Keep-alive registration interval (seconds)",
+          "scan_network": "Network for targeted scans: rediscovery of unreachable modules and the scan service (CIDR, empty = inferred)"
+        }
+      }
+    }
+  },
+  "issues": {
+    "unknown_key_id": {
+      "title": "Unknown AEH-W4E1 module tried to connect",
+      "description": "A module at {ip} performed a key exchange with LAN key id {key_id}, which does not match any configured air conditioner. If this is a new unit, add it from the integration page. If a configured unit was re-provisioned to another app account, reconfigure it with the new LAN key."
+    },
+    "port_bind_failed": {
+      "title": "AEH-W4E1 LAN server port conflict",
+      "description": "Port {port} could not be bound ({error}). Open the integration options and set the LAN server port to 0 (system-assigned free port, recommended) or to another unused port."
+    }
+  },
+  "services": {
+    "send_command": {
+      "name": "Send raw command",
+      "description": "Sends a raw property command to one or more AEH-W4E1 air conditioners."
+    },
+    "request_status_refresh": {
+      "name": "Request status refresh",
+      "description": "Queues a full status poll for one or more AEH-W4E1 air conditioners; the device reports back as soon as it next connects."
+    },
+    "scan_network": {
+      "name": "Scan network",
+      "description": "Probes the local subnet for Ayla modules and fires an `aeh_w4e1_scan_completed` event with the results."
+    }
+  },
+  "selector": {
+    "setup_method": {
+      "options": {
+        "cloud": "Cloud (one-time discovery, then local)",
+        "manual": "Manual (LAN key only, fully local)"
+      }
+    },
+    "temp_unit": {
+      "options": {
+        "C": "Celsius",
+        "F": "Fahrenheit"
+      }
+    },
+    "app": {
+      "options": {
+        "beko-eu": "Beko",
+        "denali-us": "Denali Aire",
+        "fglair-cn": "FGLair CN (Fujitsu)",
+        "fglair-eu": "FGLair EU (Fujitsu)",
+        "fglair-us": "FGLair US (Fujitsu)",
+        "field-us": "HiSmart Air",
+        "haxxair": "HAXXAIR",
+        "hisense-eu": "HiSmart Life (Hisense EU)",
+        "hisense-us": "HiSmart Home (Hisense US)",
+        "hismart-eu": "Smart-Living",
+        "hismart-us": "AI-Home",
+        "huihe-us": "SunHome",
+        "mid-eu": "WiFi AC",
+        "mid-us": "Smiling Air",
+        "oem-eu": "Hi-Smart AC",
+        "oem-us": "Hisense (OEM US)",
+        "tornado-us": "Tornado WiFi",
+        "winia-us": "Winia HomeSmart",
+        "wwh-us": "Westinghouse",
+        "york-us": "YORK Smart"
+      }
+    }
+  },
+  "entity": {
+    "climate": {
+      "ac": {
+        "state_attributes": {
+          "fan_mode": {
+            "state": {
+              "auto": "Auto",
+              "lower": "Quiet (lower)",
+              "low": "Low",
+              "medium": "Medium",
+              "high": "High",
+              "higher": "Max (higher)"
+            }
+          },
+          "preset_mode": {
+            "state": {
+              "none": "None",
+              "eco": "Eco",
+              "fast_heat_cool": "Fast cool/heat",
+              "eight_deg_heat": "8° heat",
+              "sleep_1": "Sleep 1",
+              "sleep_2": "Sleep 2",
+              "sleep_3": "Sleep 3",
+              "sleep_4": "Sleep 4"
+            }
+          },
+          "swing_mode": {
+            "state": {
+              "off": "Off",
+              "on": "On"
+            }
+          },
+          "swing_horizontal_mode": {
+            "state": {
+              "off": "Off",
+              "on": "On"
+            }
+          }
+        }
+      }
+    },
+    "switch": {
+      "backlight": {
+        "name": "Display backlight"
+      },
+      "silent_mode": {
+        "name": "Silent mode"
+      },
+      "display_power": {
+        "name": "Display power"
+      },
+      "double_frequency": {
+        "name": "Double frequency"
+      }
+    },
+    "sensor": {
+      "humidity": {
+        "name": "Humidity"
+      },
+      "room_temperature": {
+        "name": "Room temperature"
+      },
+      "voltage": {
+        "name": "Voltage"
+      },
+      "electricity": {
+        "name": "Electricity"
+      }
+    },
+    "binary_sensor": {
+      "filter_dirty": {
+        "name": "Filter needs cleaning"
+      },
+      "fault": {
+        "name": "Fault"
+      }
+    }
+  }
+}

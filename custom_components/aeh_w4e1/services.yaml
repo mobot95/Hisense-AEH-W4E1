@@ -1,0 +1,52 @@
+send_command:
+  name: Send raw command
+  description: >-
+    Sends a raw property command to one or more AEH-W4E1 air conditioners.
+    Use property names such as `t_temp`, `t_fan_speed` (or any `t_*`/`f_*`
+    property name) and values as numbers or enum names (ON, OFF, AUTO...).
+  target:
+    entity:
+      - integration: aeh_w4e1
+  fields:
+    property:
+      name: Property
+      description: The device property to write (e.g. t_temp).
+      required: true
+      example: t_fan_speed
+      selector:
+        select:
+          options:
+            - t_power
+            - t_work_mode
+            - t_temp
+            - t_fan_speed
+            - t_fan_power
+            - t_fan_leftright
+            - t_fan_mute
+            - t_eco
+            - t_sleep
+            - t_temp_heatcold
+            - t_temp_eight
+            - t_backlight
+            - t_temptype
+    value:
+      name: Value
+      description: "Numeric value or enum name (e.g. 23, ON, OFF, AUTO, LOW)."
+      required: true
+      example: "ON"
+      selector:
+        text:
+request_status_refresh:
+  name: Request status refresh
+  description: >-
+    Queues a full status poll for one or more AEH-W4E1 air conditioners;
+    the device reports back as soon as it next connects.
+  target:
+    entity:
+      - integration: aeh_w4e1
+scan_network:
+  name: Scan network
+  description: >-
+    Probes the local subnet for Ayla-based modules and fires an
+    `aeh_w4e1_scan_completed` event with the discovered modules
+    (ip, mac and extra fingerprint data).

@@ -1,0 +1,16 @@
+{
+  "domain": "aeh_w4e1",
+  "name": "Hisense AEH-W4E1",
+  "codeowners": [
+    "@mobot95"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/mobot95/hisense-aeh-w4e1",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/mobot95/hisense-aeh-w4e1/issues",
+  "requirements": [
+    "cryptography>=3.4"
+  ],
+  "version": "0.1.0"
+}
