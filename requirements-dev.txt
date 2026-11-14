@@ -1,0 +1,6 @@
+# Home Assistant 2026.11 requires Python 3.14.2 or newer.
+homeassistant>=2026.11.0,<2026.12.0
+pytest>=8.3,<10
+pytest-asyncio>=1.0,<2
+pytest-cov>=6,<8
+ruff>=0.14,<1

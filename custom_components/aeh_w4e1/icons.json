@@ -1,0 +1,62 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "fault": {
+        "default": "mdi:alert-circle-outline",
+        "state": {
+          "on": "mdi:alert-circle"
+        }
+      },
+      "filter_dirty": {
+        "default": "mdi:air-filter"
+      }
+    },
+    "climate": {
+      "ac": {
+        "default": "mdi:air-conditioner",
+        "state_attributes": {
+          "preset_mode": {
+            "default": "mdi:tune-variant",
+            "state": {
+              "eco": "mdi:leaf",
+              "eight_deg_heat": "mdi:snowflake-thermometer",
+              "fast_heat_cool": "mdi:weather-windy",
+              "sleep_1": "mdi:sleep",
+              "sleep_2": "mdi:sleep",
+              "sleep_3": "mdi:sleep",
+              "sleep_4": "mdi:sleep"
+            }
+          }
+        }
+      }
+    },
+    "switch": {
+      "backlight": {
+        "default": "mdi:lightbulb-outline",
+        "state": {
+          "on": "mdi:lightbulb"
+        }
+      },
+      "display_power": {
+        "default": "mdi:monitor"
+      },
+      "double_frequency": {
+        "default": "mdi:sine-wave"
+      },
+      "silent_mode": {
+        "default": "mdi:volume-off"
+      }
+    }
+  },
+  "services": {
+    "request_status_refresh": {
+      "service": "mdi:refresh"
+    },
+    "scan_network": {
+      "service": "mdi:lan-connect"
+    },
+    "send_command": {
+      "service": "mdi:code-json"
+    }
+  }
+}
